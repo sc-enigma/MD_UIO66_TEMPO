@@ -25,7 +25,7 @@ nstlog                   = 1000      ; 1 ps
 nstcalcenergy            = 20
 nstenergy                = 1000      ; 1 ps
 nstxout-compressed       = 1000      ; 1 ps
-energygrps               = ZIF TMP
+energygrps               = UIO TMP
 
 
 ; NEIGHBORSEARCHING PARAMETERS
@@ -55,7 +55,7 @@ ewald_rtol               = 1e-05
 ; OPTIONS FOR WEAK COUPLING ALGORITHMS
 ; Temperature coupling  
 tcoupl                   = v-rescale
-tc-grps                  = ZIF  TMP
+tc-grps                  = UIO  TMP
 tau_t                    = 1.0  1.0
 ref_t                    = 300  300
 ; pressure coupling     
