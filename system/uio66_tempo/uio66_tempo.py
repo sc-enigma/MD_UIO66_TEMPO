@@ -4,7 +4,7 @@ import pickle
 
 sys.path.append('../../../MD_ZIF7_TEMPO/system/components')
 sys.path.append('../uio66')
-from atom import Atom, mol2_to_atoms
+from atom import Atom, mol2_to_atoms, count_atoms
 from read_utils import read_mol2_file
 from write_utils import write_gro_file, write_mol2_file
 from pbc import calculate_lattice_vectors
@@ -39,7 +39,6 @@ def put_tempo_in_lattice(atoms_uio66, atoms_tempo):
     print(min_dist)
     return atoms_uio66.copy(), atoms_tempo.copy()
 
-# STEP 1. Structure with large pores. Pore A ________________________________________________________________________
 a     = 20.7465
 b     = 20.7465
 c     = 20.7465
@@ -52,7 +51,9 @@ bounds_a, bounds_b, bounds_c = [0.0, 2.0], [0.0, 2.0], [0.0, 2.0]
 # Load data
 with open('../uio66/__tmp/atoms_uio66.pickle', 'rb') as handle:
     atoms_uio66 = pickle.load(handle)
-    
+
+count_atoms(atoms_uio66)
+
 # Save .gro file
 atoms_uio66, atoms_tempo = put_tempo_in_lattice(atoms_uio66, atoms_tempo)
 with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
