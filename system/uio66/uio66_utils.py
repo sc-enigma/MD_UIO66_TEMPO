@@ -74,4 +74,16 @@ def define_uio66_atom_names(atoms):
         
     return atoms
 
+def remove_Zr_Zr_bond(atoms):
+    for atom_idx in range(len(atoms)):
+        if not 'Zr' in atoms[atom_idx].name:
+            continue
+        adj_cnt = 0
+        while adj_cnt < len(atoms[atom_idx].adjacency):
+            adj_idx = atoms[atom_idx].adjacency[adj_cnt]
+            if 'Zr' in atoms[adj_idx].name:
+                del(atoms[atom_idx].adjacency[adj_cnt])
+            else:
+                adj_cnt += 1
 
+    return atoms
