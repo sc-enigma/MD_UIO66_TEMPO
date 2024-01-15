@@ -41,7 +41,7 @@ atoms = define_uio66_atom_types(atoms)
 atoms = define_uio66_atom_names(atoms)
 
 # STEP 4. Write .gro file for large pore structure
-with open('__tmp/atoms_zif7_lp.pickle', 'wb') as handle:
+with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
     pickle.dump(atoms, handle, protocol=pickle.HIGHEST_PROTOCOL)
 write_gro_file(atoms, 'uio66.gro', a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
 
