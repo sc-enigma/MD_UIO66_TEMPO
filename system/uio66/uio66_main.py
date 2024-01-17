@@ -27,16 +27,15 @@ vec_a, vec_b, vec_c = calculate_lattice_vectors(a, b, c, alpha, beta, gamma)
 atoms = mol2_to_atoms(read_mol2_file('__uio66_source.mol2'))
 
 # STEP 2. Apply periodic boundary conditions
-atoms = apply_pbc(atoms, a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
-atoms = remove_Zr_Zr_bond(atoms)
-# atoms = remove_non_bonded_atoms(atoms)
-with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
-    pickle.dump(atoms, handle, protocol=pickle.HIGHEST_PROTOCOL)
+#atoms = apply_pbc(atoms, a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
+#with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
+#    pickle.dump(atoms, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # STEP 3. Define atom types and names
 with open('__tmp/atoms_uio66.pickle', 'rb') as handle:
     atoms = pickle.load(handle)
-
+atoms = remove_Zr_Zr_bond(atoms)
+atoms = remove_non_bonded_atoms(atoms)
 atoms = define_uio66_atom_types(atoms)
 atoms = define_uio66_atom_names(atoms)
 
