@@ -52,8 +52,6 @@ bounds_a, bounds_b, bounds_c = [0.0, 2.0], [0.0, 2.0], [0.0, 2.0]
 with open('../uio66/__tmp/atoms_uio66.pickle', 'rb') as handle:
     atoms_uio66 = pickle.load(handle)
 
-count_atoms(atoms_uio66)
-
 # Save .gro file
 atoms_uio66, atoms_tempo = put_tempo_in_lattice(atoms_uio66, atoms_tempo)
 with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
