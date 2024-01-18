@@ -18,8 +18,9 @@ for atom_idx in range(len(atoms_tempo)):
 def put_tempo_in_lattice(atoms_uio66, atoms_tempo):
     # Calculate cell center
     cell_center = np.zeros(3)
-    for atom_idx in [416, 438, 1341, 1358]:
-        cell_center += atoms_uio66[atom_idx].r / 4.0
+    for atom_idx in [1704, 2611]:
+        cell_center += atoms_uio66[atom_idx].r / 2.0
+    cell_center -= np.array([2.0, 1.0, 2.0])
 
     # Calculate TEMPO center
     tempo_center = np.zeros(3)

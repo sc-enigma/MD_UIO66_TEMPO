@@ -1,1 +1,1 @@
-x > 10 and x < 21 and y > 10 and y < 21 and z > 10 and z < 21
+x > 20 and x < 32 and y > 20 and y < 32 and z > 20 and z < 32
