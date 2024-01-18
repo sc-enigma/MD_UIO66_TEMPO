@@ -57,9 +57,9 @@ ewald_rtol               = 1e-05
 tcoupl                   = v-rescale
 tc-grps                  = UIO  TMP
 tau_t                    = 1.0  1.0
-ref_t                    = 288  288
+ref_t                    = 290  290
 ; pressure coupling     
-pcoupl                   = C-rescale
+pcoupl                   =
 pcoupltype               = isotropic
 tau_p                    = 5.
 compressibility          = 4.5e-5
@@ -69,7 +69,7 @@ refcoord-scaling         = No
 
 ; GENERATE VELOCITIES FOR STARTUP RUN
 gen-vel                  = no
-gen-temp                 = 288
+gen-temp                 = 290
 gen-seed                 = 3532
 
 
