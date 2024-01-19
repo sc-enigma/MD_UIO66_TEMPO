@@ -19,13 +19,13 @@ emstep                   = 0.001
 
 ; OUTPUT CONTROL OPTIONS
 nstxout                  = 100       ; 0.1 ps
-nstvout                  = 100000    ; 100 ps
+nstvout                  = 1000      ; 1 ps
 nstfout                  = 0
 nstlog                   = 1000      ; 1 ps
 nstcalcenergy            = 20
 nstenergy                = 1000      ; 1 ps
 nstxout-compressed       = 100       ; 0.1 ps
-energygrps               = UIO TMP
+energygrps               = ZIF TMP
 
 
 ; NEIGHBORSEARCHING PARAMETERS
@@ -55,13 +55,13 @@ ewald_rtol               = 1e-05
 ; OPTIONS FOR WEAK COUPLING ALGORITHMS
 ; Temperature coupling  
 tcoupl                   = v-rescale
-tc-grps                  = UIO  TMP
+tc-grps                  = ZIF  TMP
 tau_t                    = 1.0  1.0
 ref_t                    = 290  290
 ; pressure coupling     
-pcoupl                   =
+pcoupl                   = no
 pcoupltype               = isotropic
-tau_p                    = 5.
+tau_p                    = 0.5
 compressibility          = 4.5e-5
 ref_p                    = 1.
 refcoord-scaling         = No
