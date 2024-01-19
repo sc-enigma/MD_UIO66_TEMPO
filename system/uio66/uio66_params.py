@@ -8,6 +8,8 @@ def get_uio66_params():
     mass['flexFF_O1'] = 16.000
     mass['flexFF_O3'] = 16.000
     mass['flexFF_H1'] =  1.008
+    mass['repl_H']    =  1.008
+    mass['repl_O']    = 16.000
  
     # [atom_type] = q
     charge = {}
@@ -18,6 +20,8 @@ def get_uio66_params():
     charge['flexFF_O1'] = -0.533
     charge['flexFF_O3'] = -0.902
     charge['flexFF_H1'] =  0.133
+    charge['repl_H']    =  0.4
+    charge['repl_O']    = -0.8
 
     # [atom_type-atom_type] = [funct, r0, k]
     bond_params = {}
@@ -28,6 +32,10 @@ def get_uio66_params():
     bond_params['flexFF_C2-flexFF_C3'] = [1, 0.1393, 401664.000]
     bond_params['flexFF_C3-flexFF_C3'] = [1, 0.1393, 401664.000]
     bond_params['flexFF_C3-flexFF_H1'] = [1, 0.1080, 304106.800]
+    
+    bond_params['flexFF_Zr-repl_O'] = [1, 0.2098, 107733.800]
+    bond_params['flexFF_O1-repl_H'] = [1, 0.0960, 462750.000]
+    bond_params['repl_O-repl_H']    = [1, 0.0960, 462750.000]
     
     # [atom_type-atom_type-atom_type] = [funct, angle, k]
     angle_params = {}
@@ -50,6 +58,7 @@ def get_uio66_params():
     angle_params['flexFF_C2-flexFF_C3-flexFF_C3']  = [1, 120.000, 753.120]
     angle_params['flexFF_C2-flexFF_C3-flexFF_H1']  = [1, 120.000, 309.616]
     angle_params['flexFF_C3-flexFF_C3-flexFF_H1']  = [1, 120.000, 309.616]
+    angle_params['flexFF_Zr-repl_O-repl_H']        = [1, 108.500, 372.560]
 
     # [atom_type-atom_type-atom_type-atom_type] = [funct, angle, k, n]        - periodic
     # [atom_type-atom_type-atom_type-atom_type] = [funct, c1, c2, c3, c4, c5] - fourier
