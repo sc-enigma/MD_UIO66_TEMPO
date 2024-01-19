@@ -96,6 +96,12 @@ def add_OH2(atoms, idx, resid = ''):
     return atoms
 
 def create_linker(atoms, linker_ids, linker_cnt):
+    if linker_cnt == 1:
+        resid = 'TRA'
+    if linker_cnt == 2:
+        resid = 'TRB'
+    if linker_cnt == 3:
+        resid = 'TRC'
     shift = {}
     atoms_linker = [copy_atom(atoms[linker_id]) for linker_id in linker_ids]
     for atom_idx in range(len(linker_ids)):
@@ -113,20 +119,21 @@ def create_linker(atoms, linker_ids, linker_cnt):
     atoms_linker = add_H(atoms_linker, 15)
     for atom_idx in range(len(atoms_linker)):
         atoms_linker[atom_idx].atom_idx = atom_idx + 1
-        atoms_linker[atom_idx].resid = 'TRA'
+        atoms_linker[atom_idx].resid = resid
         atoms_linker[atom_idx].resid_idx = linker_cnt
     with open(f'__tmp/atoms_linker{linker_cnt}.pickle', 'wb') as handle:
         pickle.dump(atoms_linker, handle, protocol=pickle.HIGHEST_PROTOCOL)
     write_gro_file(atoms_linker, f'__tmp/atoms_linker{linker_cnt}.gro', 41.493, 41.493, 41.493)
     
     mass, charge, bond_params, angle_params, dihedral_params = get_uio66_params()
-    write_atoms(atoms_linker, charge, mass, 'TRA', f'__tmp/linker_atoms{linker_cnt}.itp')
+    write_atoms(atoms_linker, charge, mass, resid, f'__tmp/linker_atoms{linker_cnt}.itp')
     write_bonds(atoms_linker, bond_params,         f'__tmp/linker_bonds{linker_cnt}.itp')
     write_angles(atoms_linker, angle_params,       f'__tmp/linker_angles{linker_cnt}.itp')
     write_dihedrals(atoms_linker, dihedral_params, f'__tmp/linker_dihedrals{linker_cnt}.itp')
-    compose_itp_files(['../uio66/atomtypes.itp', 'linker_moleculetype.itp',
+    # '../uio66/atomtypes.itp'
+    compose_itp_files([f'linker_moleculetype{linker_cnt}.itp',
                        f'__tmp/linker_atoms{linker_cnt}.itp', f'__tmp/linker_bonds{linker_cnt}.itp', f'__tmp/linker_angles{linker_cnt}.itp', f'__tmp/linker_dihedrals{linker_cnt}.itp'],
-                       f'__tmp/linker{linker_cnt}.itp')
+                       f'linker{linker_cnt}.itp')
     return atoms_linker
     
                    
@@ -171,30 +178,30 @@ for removed_count in [1, 2, 3]:
         # Add H / OH / OH2
         ids_to_remove = []
         if remove_zr_cluster:
-            atoms_uio66 = add_H(atoms_uio66, 307)
-            atoms_uio66 = add_H(atoms_uio66, 344)
-            atoms_uio66 = add_H(atoms_uio66, 320)
-            atoms_uio66 = add_H(atoms_uio66, 385)
-            atoms_uio66 = add_H(atoms_uio66, 394)
-            atoms_uio66 = add_H(atoms_uio66, 374)
+            atoms_uio66 = add_H(atoms_uio66, 307, 'UIO')
+            atoms_uio66 = add_H(atoms_uio66, 344, 'UIO')
+            atoms_uio66 = add_H(atoms_uio66, 320, 'UIO')
+            atoms_uio66 = add_H(atoms_uio66, 385, 'UIO')
+            atoms_uio66 = add_H(atoms_uio66, 394, 'UIO')
+            atoms_uio66 = add_H(atoms_uio66, 374, 'UIO')
             ids_to_remove.extend(zr_cluster_ids)
         if removed_count > 0:
-           atoms_uio66 = add_OH(atoms_uio66, 306)
-           atoms_uio66 = add_OH2(atoms_uio66, 319)
-           atoms_uio66 = add_OH(atoms_uio66, 2643)
-           atoms_uio66 = add_OH2(atoms_uio66, 2611)
+           atoms_uio66 = add_OH(atoms_uio66, 306,   'UIO')
+           atoms_uio66 = add_OH2(atoms_uio66, 319,  'UIO')
+           atoms_uio66 = add_OH(atoms_uio66, 2643,  'UIO')
+           atoms_uio66 = add_OH2(atoms_uio66, 2611, 'UIO')
            ids_to_remove.extend(linker1_ids)
         if removed_count > 1:
-            atoms_uio66 = add_OH(atoms_uio66, 343)
-            atoms_uio66 = add_OH2(atoms_uio66, 306)
-            atoms_uio66 = add_OH(atoms_uio66, 3388)
-            atoms_uio66 = add_OH2(atoms_uio66, 3407)
+            atoms_uio66 = add_OH(atoms_uio66, 343,  'UIO')
+            atoms_uio66 = add_OH2(atoms_uio66, 306,  'UIO')
+            atoms_uio66 = add_OH(atoms_uio66, 3388,  'UIO')
+            atoms_uio66 = add_OH2(atoms_uio66, 3407, 'UIO')
             ids_to_remove.extend(linker2_ids)
         if removed_count > 2:
-            atoms_uio66 = add_OH(atoms_uio66, 319)
-            atoms_uio66 = add_OH2(atoms_uio66, 343)
-            atoms_uio66 = add_OH(atoms_uio66, 1651)
-            atoms_uio66 = add_OH2(atoms_uio66, 1642)
+            atoms_uio66 = add_OH(atoms_uio66, 319,  'UIO')
+            atoms_uio66 = add_OH2(atoms_uio66, 343, 'UIO')
+            atoms_uio66 = add_OH(atoms_uio66, 1651,  'UIO')
+            atoms_uio66 = add_OH2(atoms_uio66, 1642, 'UIO')
             ids_to_remove.extend(linker3_ids)
         
         # Remove linkers / Zr cluster
@@ -207,14 +214,13 @@ for removed_count in [1, 2, 3]:
             cluster_fl = 'cl'
         else:
             cluster_fl = ''
-        '''write_atoms(atoms_uio66, charge, mass, 'TRA', f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp')
+        write_atoms(atoms_uio66, charge, mass, 'UIO', f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp')
         write_bonds(atoms_uio66, bond_params,         f'__tmp/uio66_bonds{removed_count}{cluster_fl}.itp')
         write_angles(atoms_uio66, angle_params,       f'__tmp/uio66_angles{removed_count}{cluster_fl}.itp')
-        write_dihedrals(atoms_uio66, dihedral_params, f'__tmp/uio66_dihedrals{removed_count}{cluster_fl}.itp')
-        # '../uio66/atomtypes.itp', 
-        compose_itp_files(['../uio66/moleculetype.itp',
+        write_dihedrals(atoms_uio66, dihedral_params, f'__tmp/uio66_dihedrals{removed_count}{cluster_fl}.itp') 
+        compose_itp_files(['../uio66/atomtypes.itp', '../uio66/moleculetype.itp',
                            f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp', f'__tmp/uio66_bonds{removed_count}{cluster_fl}.itp', f'__tmp/uio66_angles{removed_count}{cluster_fl}.itp', f'__tmp/uio66_dihedrals{removed_count}{cluster_fl}.itp'],
-                           f'uio66_{removed_count}{cluster_fl}.itp')'''
+                           f'uio66_{removed_count}{cluster_fl}.itp')
         
         # Write .gro file
         atoms_uio66_tempo_removed = atoms_uio66.copy()
