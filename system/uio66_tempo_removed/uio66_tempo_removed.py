@@ -127,6 +127,7 @@ def create_linker(atoms, linker_ids, linker_cnt):
     compose_itp_files(['../uio66/atomtypes.itp', 'linker_moleculetype.itp',
                        f'__tmp/linker_atoms{linker_cnt}.itp', f'__tmp/linker_bonds{linker_cnt}.itp', f'__tmp/linker_angles{linker_cnt}.itp', f'__tmp/linker_dihedrals{linker_cnt}.itp'],
                        f'__tmp/linker{linker_cnt}.itp')
+    return atoms_linker
     
                    
 # Load data
@@ -150,21 +151,25 @@ linker2_ids = [344, 348, 378, 379, 345, 346, 380, 347, 418, 1645, 421, 1656, 164
 linker3_ids = [382, 320, 321, 325, 322, 383, 323, 384, 434, 438, 3434, 3391, 3390, 3393, 3389, 3433]
 zr_cluster_ids = [317, 373, 324, 381, 336, 377, 311, 369, 319, 365, 343, 306, 331, 354] # 6 Zr, 8 O3
 
+atoms_linker = []
 linker_cnt = 0
 for linker_ids in [linker1_ids, linker2_ids, linker3_ids]:
     linker_cnt += 1
-    create_linker(atoms_uio66, linker_ids, linker_cnt)
+    atoms_linker.append(create_linker(atoms_uio66, linker_ids, linker_cnt))
 
 # main cycle
 for removed_count in [1, 2, 3]:
-    for remove_zr_cluster in [True]: # [False, True]:
+    for remove_zr_cluster in [False, True]:
+        print(f'removed_count = {removed_count} remove_zr_cluster = {remove_zr_cluster}')
+        
+        # Load data
         with open('../uio66_tempo/__tmp/atoms_uio66.pickle', 'rb') as handle:
             atoms_uio66 = pickle.load(handle)
         with open('../uio66_tempo/__tmp/atoms_tempo.pickle', 'rb') as handle:
             atoms_tempo = pickle.load(handle)
-            
-        ids_to_remove = []
         
+        # Add H / OH / OH2
+        ids_to_remove = []
         if remove_zr_cluster:
             atoms_uio66 = add_H(atoms_uio66, 307)
             atoms_uio66 = add_H(atoms_uio66, 344)
@@ -191,26 +196,35 @@ for removed_count in [1, 2, 3]:
             atoms_uio66 = add_OH(atoms_uio66, 1651)
             atoms_uio66 = add_OH2(atoms_uio66, 1642)
             ids_to_remove.extend(linker3_ids)
-            
+        
+        # Remove linkers / Zr cluster
         atoms_uio66 = remove_atoms(atoms_uio66, ids_to_remove)
         atoms_uio66 = remove_non_bonded_atoms(atoms_uio66)
-            
+        
+        # Write .itp files
         mass, charge, bond_params, angle_params, dihedral_params = get_uio66_params()
         if remove_zr_cluster:
             cluster_fl = 'cl'
         else:
             cluster_fl = ''
-        write_atoms(atoms_uio66, charge, mass, 'TRA', f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp')
+        '''write_atoms(atoms_uio66, charge, mass, 'TRA', f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp')
         write_bonds(atoms_uio66, bond_params,         f'__tmp/uio66_bonds{removed_count}{cluster_fl}.itp')
         write_angles(atoms_uio66, angle_params,       f'__tmp/uio66_angles{removed_count}{cluster_fl}.itp')
         write_dihedrals(atoms_uio66, dihedral_params, f'__tmp/uio66_dihedrals{removed_count}{cluster_fl}.itp')
         # '../uio66/atomtypes.itp', 
         compose_itp_files(['../uio66/moleculetype.itp',
                            f'__tmp/uio66_atoms{removed_count}{cluster_fl}.itp', f'__tmp/uio66_bonds{removed_count}{cluster_fl}.itp', f'__tmp/uio66_angles{removed_count}{cluster_fl}.itp', f'__tmp/uio66_dihedrals{removed_count}{cluster_fl}.itp'],
-                           f'uio66_{removed_count}{cluster_fl}.itp')
+                           f'uio66_{removed_count}{cluster_fl}.itp')'''
         
-        atoms_uio66_tempo = atoms_uio66.copy()
-        atoms_uio66_tempo.extend(atoms_tempo.copy())
-        write_gro_file(atoms_uio66_tempo, f'uio66_{removed_count}{cluster_fl}.gro', a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
+        # Write .gro file
+        atoms_uio66_tempo_removed = atoms_uio66.copy()
+        atoms_uio66_tempo_removed.extend(atoms_tempo.copy())
+        if removed_count > 0:
+            atoms_uio66_tempo_removed.extend(atoms_linker[0].copy())
+        if removed_count > 1:
+            atoms_uio66_tempo_removed.extend(atoms_linker[1].copy())
+        if removed_count > 2:
+            atoms_uio66_tempo_removed.extend(atoms_linker[2].copy())
+        write_gro_file(atoms_uio66_tempo_removed, f'uio66_{removed_count}{cluster_fl}.gro', a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
         
 
