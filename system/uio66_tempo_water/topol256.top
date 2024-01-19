@@ -1,0 +1,18 @@
+[ defaults ]
+; nbfunc        comb-rule       gen-pairs       fudgeLJ fudgeQQ
+1               2               yes             0.5     0.8333
+
+#include "tip4p_atomtypes.itp"
+#include "tempo_atomtypes.itp"
+#include "uio66.itp"
+#include "tempo.itp"
+#include "tip4p.itp"
+
+[ system ]
+UIO66
+
+[ molecules ]
+;molecule name   nr.
+UIO              1
+TEMPO-vsLP       1
+SOL              256
