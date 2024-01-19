@@ -3482,13 +3482,16 @@
   3480  flexFF_H1      1    TRA    H1      1     0.1330     1.0080
   3481     repl_H      1    TRA    HR      1     0.4000     1.0080
   3482     repl_H      1    TRA    HR      1     0.4000     1.0080
-  3483     repl_O      1    TRA    OR      1    -0.8000    16.0000
+  3483     repl_H      1    TRA    HR      1     0.4000     1.0080
   3484     repl_H      1    TRA    HR      1     0.4000     1.0080
-  3485     repl_O      1    TRA    OR      1    -0.8000    16.0000
-  3486     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3485     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3486     repl_O      1    TRA    OR      1    -0.8000    16.0000
   3487     repl_H      1    TRA    HR      1     0.4000     1.0080
   3488     repl_O      1    TRA    OR      1    -0.8000    16.0000
   3489     repl_H      1    TRA    HR      1     0.4000     1.0080
-  3490     repl_O      1    TRA    OR      1    -0.8000    16.0000
-  3491     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3490     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3491     repl_O      1    TRA    OR      1    -0.8000    16.0000
   3492     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3493     repl_O      1    TRA    OR      1    -0.8000    16.0000
+  3494     repl_H      1    TRA    HR      1     0.4000     1.0080
+  3495     repl_H      1    TRA    HR      1     0.4000     1.0080

@@ -156,8 +156,8 @@ for linker_ids in [linker1_ids, linker2_ids, linker3_ids]:
     create_linker(atoms_uio66, linker_ids, linker_cnt)
 
 # main cycle
-for removed_count in [3]:
-    for remove_zr_cluster in [False, True]:
+for removed_count in [1, 2, 3]:
+    for remove_zr_cluster in [True]: # [False, True]:
         with open('../uio66_tempo/__tmp/atoms_uio66.pickle', 'rb') as handle:
             atoms_uio66 = pickle.load(handle)
         with open('../uio66_tempo/__tmp/atoms_tempo.pickle', 'rb') as handle:
@@ -169,6 +169,9 @@ for removed_count in [3]:
             atoms_uio66 = add_H(atoms_uio66, 307)
             atoms_uio66 = add_H(atoms_uio66, 344)
             atoms_uio66 = add_H(atoms_uio66, 320)
+            atoms_uio66 = add_H(atoms_uio66, 385)
+            atoms_uio66 = add_H(atoms_uio66, 394)
+            atoms_uio66 = add_H(atoms_uio66, 374)
             ids_to_remove.extend(zr_cluster_ids)
         if removed_count > 0:
            atoms_uio66 = add_OH(atoms_uio66, 306)
