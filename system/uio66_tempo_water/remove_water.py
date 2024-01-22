@@ -1,6 +1,6 @@
 from random import randint
 
-count = 256   # count of water molecules
+count = 128   # count of water molecules
 a_prev = 3541 # current count of atoms in .gro file (without water)
 
 with open('water1038.gro', 'r') as f:
