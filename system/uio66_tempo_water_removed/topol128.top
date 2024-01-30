@@ -4,7 +4,7 @@
 
 #include "tip4p_atomtypes.itp"
 #include "tempo_atomtypes.itp"
-#include "uio66.itp"
+#include "uio66_1.itp"
 #include "tempo.itp"
 #include "tip4p.itp"
 
@@ -15,4 +15,4 @@ UIO66
 ;molecule name   nr.
 UIO              1
 TEMPO-vsLP       1
-SOL              256
+SOL              128
