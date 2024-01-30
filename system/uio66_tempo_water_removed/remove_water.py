@@ -1,9 +1,9 @@
 from random import randint
 
 count = 128   # count of water molecules
-a_prev = 3541 # current count of atoms in .gro file (without water)
+a_prev = 3535 # current count of atoms in .gro file (without water)
 
-with open('water1038.gro', 'r') as f:
+with open('water1041.gro', 'r') as f:
     lines = [line for line in f]
 f.close()
 
@@ -15,7 +15,7 @@ for mol_idx in range(int(len(lines) / 4)):
 
 selected = []
 while len(selected) < count:
-    val = randint(0, 1038)
+    val = randint(0, 1041)
     if val not in selected:
         selected.append(val)
 selected.sort()
