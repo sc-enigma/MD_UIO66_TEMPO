@@ -1,0 +1,5 @@
+[ atomtypes ]
+;name         bond_type     mass     charge   ptype   sigma         epsilon
+HW_tip4p       HW     1.00800  0.00000  A     0.00000e+00   0.00000e+00
+OW_tip4p       OW    16.0000   0.0000   A     3.15365e-01   6.48520e-01
+MW             MW     0.00000  0.00000  D     0.00000e+00   0.00000e+00

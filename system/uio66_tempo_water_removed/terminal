@@ -1,0 +1,1 @@
+gmx_mpi solvate -cp uio66_tempo.gro -cs tip4p.gro -box 4.14930   4.14930   4.14930
