@@ -28,7 +28,7 @@ do
 	-n index.ndx -o N_O/$JOB_NAME/removed3.xvg
 done
 
-uio66_tempo_removed_linker_and_cluster
+for JOB_NAME in uio66_tempo_removed_linker_and_cluster
 do
 	echo 8 | gmx_mpi rotacf \
 	-f /media/sc_enigma/_data/Projects/MD_UIO66/production/$JOB_NAME/removed1/prod/traj_comp.xtc \
