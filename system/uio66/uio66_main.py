@@ -46,6 +46,7 @@ atoms = remove_periodic_bonds(atoms)
 with open('__tmp/atoms_uio66.pickle', 'wb') as handle:
     pickle.dump(atoms, handle, protocol=pickle.HIGHEST_PROTOCOL)
 write_gro_file(atoms, 'uio66.gro', a, b, c, alpha, beta, gamma, bounds_a, bounds_b, bounds_c)
+write_mol2_file(atoms, 'uio66.mol2', a, b, c, alpha, beta, gamma, True)
 
 count_atoms(atoms)
 # STEP 5. Write .itp files
